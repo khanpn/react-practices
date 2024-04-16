@@ -5,6 +5,7 @@ import GameGrid from "./GameGrid";
 import GameSortSelector from "./GameSortSelector";
 import GenreList from "./GenreList";
 import PlatformSelector from "./PlatformSelector";
+import GameHeading from "./GameHeading";
 
 interface Props {
   searchInput?: string;
@@ -23,7 +24,8 @@ function AppBody({ searchInput }: Props) {
         />
       </Box>
       <Stack direction="column">
-        <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
+        <GameHeading gameQuery={gameQuery} />
+        <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap" pt={1}>
           <PlatformSelector
             onSelectPlatform={(platform) =>
               setGameQuery({

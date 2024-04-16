@@ -6,6 +6,7 @@ import {
   ListItemButton,
   ListItemText,
   Skeleton,
+  Typography,
 } from "@mui/material";
 import { useFetchGenres } from "../hooks/useFetchGenres";
 import { Genre } from "../models/genre";
@@ -48,27 +49,32 @@ function GenreList({
   }
 
   return (
-    <List sx={{ minWidth: 250 }}>
-      {isLoading &&
-        skeletons.map((index) => (
-          <GenreListItemSkeleton
-            key={index}
-            index={index}
-          ></GenreListItemSkeleton>
+    <>
+      <Typography variant="h5" sx={{ pl: 2 }}>
+        Genres
+      </Typography>
+      <List sx={{ minWidth: 250 }}>
+        {isLoading &&
+          skeletons.map((index) => (
+            <GenreListItemSkeleton
+              key={index}
+              index={index}
+            ></GenreListItemSkeleton>
+          ))}
+        {genres.map((genre) => (
+          <ListItemButton
+            key={genre.id}
+            selected={selectedGenre?.id === genre.id}
+            onClick={() => onSelectGenre(genre)}
+          >
+            <ListItemAvatar>
+              <Avatar variant="rounded" src={genre.image_background}></Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={genre.name} />
+          </ListItemButton>
         ))}
-      {genres.map((genre) => (
-        <ListItemButton
-          key={genre.id}
-          selected={selectedGenre?.id === genre.id}
-          onClick={() => onSelectGenre(genre)}
-        >
-          <ListItemAvatar>
-            <Avatar variant="rounded" src={genre.image_background}></Avatar>
-          </ListItemAvatar>
-          <ListItemText primary={genre.name} />
-        </ListItemButton>
-      ))}
-    </List>
+      </List>
+    </>
   );
 }
 

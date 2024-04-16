@@ -24,12 +24,12 @@ function GameGrid({ gameQuery, numOfSkeletons = 9 }: Props) {
     <Grid container spacing={{ xs: 1, sm: 1, md: 3 }} direction="row">
       {isLoading &&
         skeletons.map((i) => (
-          <Grid item key={`${i}`} xs={12} sm={6} md={4} xl={3}>
+          <Grid item key={`${i}`} xs={12} sm={6} md={4} xl={2}>
             <GameCardSkeleton />
           </Grid>
         ))}
       {games.map((game) => (
-        <Grid item key={`${game.id}`} xs={12} sm={6} md={4} xl={3}>
+        <Grid item key={`${game.id}`} xs={12} sm={6} md={4} xl={2}>
           <GameCard game={game}></GameCard>
         </Grid>
       ))}

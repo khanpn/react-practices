@@ -28,12 +28,12 @@ function PlatformSelector({ onSelectPlatform }: Props) {
 
   return (
     <FormControl sx={{ minWidth: 300 }} variant="standard" error={!!error}>
-      <InputLabel id="platform-select-label">Select Platform</InputLabel>
+      <InputLabel id="platform-select-label">Platform</InputLabel>
       <Select
         labelId="platform-select-label"
         id="platform-select"
         value={selectedValue}
-        label="Select Platform"
+        label="Platform"
         onChange={(e) => {
           const selectedValue = e.target.value;
           onSelectPlatform(mapValueToPlatform(selectedValue));

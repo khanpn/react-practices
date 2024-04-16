@@ -1,5 +1,5 @@
 import { Stack, Typography } from "@mui/material";
-import { Platform } from "../models/game";
+import { Platform } from "../models/platform";
 import PlatformIcon from "./PlatformIcon";
 
 interface Props {

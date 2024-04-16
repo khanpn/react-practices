@@ -1,8 +1,4 @@
-export interface Platform {
-  id: number;
-  name: string;
-  slug: string;
-}
+import { Platform } from "./platform";
 
 export interface Game {
   id: number;

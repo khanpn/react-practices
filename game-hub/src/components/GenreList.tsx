@@ -51,7 +51,10 @@ function GenreList({
     <List sx={{ minWidth: 250 }}>
       {isLoading &&
         skeletons.map((index) => (
-          <GenreListItemSkeleton index={index}></GenreListItemSkeleton>
+          <GenreListItemSkeleton
+            key={index}
+            index={index}
+          ></GenreListItemSkeleton>
         ))}
       {genres.map((genre) => (
         <ListItemButton

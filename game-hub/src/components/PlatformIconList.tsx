@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Platform } from "../models/game";
 import PlatformIcon from "./PlatformIcon";
 
@@ -17,7 +17,7 @@ function PlatformIconList({ platforms, maxLength = 4 }: Props) {
       ))}
       {remainingCount > 0 && (
         <PlatformIcon key={-1} variant="more">
-          +{remainingCount}
+          <Typography variant="body1">+{remainingCount}</Typography>
         </PlatformIcon>
       )}
     </Stack>

@@ -5,6 +5,7 @@ import { useTheme } from "@mui/material/styles";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import ColorModeContext from "../contexts/colorMode";
+import { Typography } from "@mui/material";
 
 function ColorModeSwitch() {
   const theme = useTheme();
@@ -15,11 +16,11 @@ function ColorModeSwitch() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: 1,
-        p: 3,
       }}
     >
-      {theme.palette.mode} mode
+      <Typography sx={{ display: { xs: "none", md: "inline" } }}>
+        {theme.palette.mode} mode
+      </Typography>
       <IconButton
         sx={{ ml: 1 }}
         onClick={colorMode.toggleColorMode}

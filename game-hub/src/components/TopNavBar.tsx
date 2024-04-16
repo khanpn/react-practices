@@ -1,3 +1,5 @@
+import ExtensionIcon from "@mui/icons-material/Extension";
+import MenuIcon from "@mui/icons-material/Menu";
 import {
   AppBar,
   Avatar,
@@ -11,11 +13,9 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import ExtensionIcon from "@mui/icons-material/Extension";
-import MenuIcon from "@mui/icons-material/Menu";
 import { MouseEvent, useContext, useState } from "react";
-import ColorModeSwitch from "./ColorModeSwitch";
 import SecurityContext from "../contexts/security";
+import ColorModeSwitch from "./ColorModeSwitch";
 
 const pages = ["Home", "Leaderboard", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -45,7 +45,7 @@ function TopNavBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <ExtensionIcon />
+          <ExtensionIcon sx={{ display: { xs: "none", md: "inline" } }} />
           <Typography
             variant="h6"
             noWrap
@@ -64,7 +64,7 @@ function TopNavBar() {
             GameHub
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -128,9 +128,9 @@ function TopNavBar() {
               </Button>
             ))}
           </Box>
-
-          <ColorModeSwitch />
-
+          <Box sx={{ flexGrow: 0, p: 3 }}>
+            <ColorModeSwitch />
+          </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton sx={{ p: 0 }} onClick={handleOpenUserMenu}>

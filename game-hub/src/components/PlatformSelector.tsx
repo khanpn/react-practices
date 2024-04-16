@@ -33,7 +33,7 @@ function PlatformSelector({ onSelectPlatform }: Props) {
         labelId="platform-select-label"
         id="platform-select"
         value={selectedValue}
-        label="Platform"
+        label="Select Platform"
         onChange={(e) => {
           const selectedValue = e.target.value;
           onSelectPlatform(mapValueToPlatform(selectedValue));

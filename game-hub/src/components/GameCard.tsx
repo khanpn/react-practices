@@ -13,6 +13,7 @@ import { Game } from "../models/game";
 import PlatformIconList from "./PlatformIconList";
 import CriticScore from "./CriticScore";
 import getCroppedImageUrl from "../services/image-url";
+import bgImagePlaceholder from "../assets/images/no-image-placeholder.webp";
 
 export function GameCardSkeleton() {
   const {
@@ -59,13 +60,11 @@ interface Props {
 }
 
 function GameCard({ game }: Props) {
+  const bgImage =
+    getCroppedImageUrl(game.background_image) || bgImagePlaceholder;
   return (
     <Card sx={{ width: "100%" }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image={getCroppedImageUrl(game.background_image)}
-        title={game.name}
-      />
+      <CardMedia sx={{ height: 140 }} image={bgImage} title={game.name} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {game.name}

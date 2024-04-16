@@ -1,25 +1,15 @@
 import { Grid } from "@mui/material";
 import { useFetchGames } from "../hooks/useFetchGames";
+import { GameQuery } from "../models/gameQuery";
 import GameCard, { GameCardSkeleton } from "./GameCard";
-import { Genre } from "../models/genre";
-import { Platform } from "../models/platform";
 
 interface Props {
-  selectedGenre?: Genre;
-  selectedPlatform?: Platform;
+  gameQuery?: GameQuery;
   numOfSkeletons?: number;
 }
 
-function GameGrid({
-  selectedGenre,
-  selectedPlatform,
-  numOfSkeletons = 9,
-}: Props) {
-  const {
-    data: games,
-    error,
-    isLoading,
-  } = useFetchGames([], selectedGenre, selectedPlatform);
+function GameGrid({ gameQuery, numOfSkeletons = 9 }: Props) {
+  const { data: games, error, isLoading } = useFetchGames([], gameQuery);
 
   if (error) return error;
   let skeletons = [];

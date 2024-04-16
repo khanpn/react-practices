@@ -4,6 +4,7 @@ interface Options {
 }
 
 const getCroppedImageUrl = (url: string, options?: Options): string => {
+  if (!url) return "";
   const { width, height } = options || { width: 600, height: 400 };
   const target = "media/";
   const index = url.indexOf(target) + target.length;

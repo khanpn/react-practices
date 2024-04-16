@@ -7,20 +7,15 @@ import {
   Skeleton,
   Stack,
   Typography,
-  useTheme,
 } from "@mui/material";
-import { Game } from "../models/game";
-import PlatformIconList from "./PlatformIconList";
-import CriticScore from "./CriticScore";
-import getCroppedImageUrl from "../services/image-url";
 import bgImagePlaceholder from "../assets/images/no-image-placeholder.webp";
+import { Game } from "../models/game";
+import getCroppedImageUrl from "../services/image-url";
+import CriticScore from "./CriticScore";
+import PlatformIconList from "./PlatformIconList";
 
 export function GameCardSkeleton() {
-  const {
-    palette: { mode },
-  } = useTheme();
-
-  const bgCorlor = mode === "dark" ? "white" : "gray";
+  const bgCorlor = "gray.500";
 
   return (
     <Card sx={{ width: "100%" }}>
@@ -66,15 +61,15 @@ function GameCard({ game }: Props) {
     <Card sx={{ width: "100%" }}>
       <CardMedia sx={{ height: 140 }} image={bgImage} title={game.name} />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {game.name}
-        </Typography>
         <Stack direction="row" justifyContent="space-between">
           <PlatformIconList
             platforms={game.parent_platforms.map(({ platform }) => platform)}
           ></PlatformIconList>
           <CriticScore score={game.metacritic}></CriticScore>
         </Stack>
+        <Typography gutterBottom variant="h5" component="div">
+          {game.name}
+        </Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>

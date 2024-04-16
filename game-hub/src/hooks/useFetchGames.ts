@@ -9,12 +9,14 @@ export const useFetchGames = (initialValue: Game[], gameQuery?: GameQuery) => {
       genres: gameQuery?.genre?.id,
       parent_platforms: gameQuery?.platform?.id,
       ordering: gameQuery?.sortOrder,
+      search: gameQuery?.search,
     },
   };
   const deps = [
     gameQuery?.genre?.id,
     gameQuery?.platform?.id,
     gameQuery?.sortOrder,
+    gameQuery?.search,
   ];
   return useFetchApi<Game[]>("/games", initialValue, requestConfig, deps);
 };

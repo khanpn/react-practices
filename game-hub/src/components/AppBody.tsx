@@ -6,7 +6,11 @@ import GameSortSelector from "./GameSortSelector";
 import GenreList from "./GenreList";
 import PlatformSelector from "./PlatformSelector";
 
-function AppBody() {
+interface Props {
+  searchInput?: string;
+}
+
+function AppBody({ searchInput }: Props) {
   const [gameQuery, setGameQuery] = useState<GameQuery>({});
   return (
     <Stack direction="row" spacing={2}>
@@ -19,7 +23,7 @@ function AppBody() {
         />
       </Box>
       <Stack direction="column">
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap">
           <PlatformSelector
             onSelectPlatform={(platform) =>
               setGameQuery({
@@ -45,7 +49,7 @@ function AppBody() {
             border: "none",
           }}
         />
-        <GameGrid gameQuery={gameQuery} />
+        <GameGrid gameQuery={{ ...gameQuery, search: searchInput }} />
       </Stack>
       <Divider
         component="div"

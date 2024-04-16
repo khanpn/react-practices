@@ -50,7 +50,7 @@ function GameSortSelector({ onChange }: Props) {
   };
 
   return (
-    <FormControl sx={{ width: 320 }} variant="standard">
+    <FormControl sx={{ minWidth: 300 }} variant="standard">
       <InputLabel id="game-sort-select-label">Sorted by</InputLabel>
       <Select
         labelId="game-sort-select-label"

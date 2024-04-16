@@ -1,50 +1,24 @@
 import ExtensionIcon from "@mui/icons-material/Extension";
-import MenuIcon from "@mui/icons-material/Menu";
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Container,
-  IconButton,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Tooltip,
-  Typography,
-} from "@mui/material";
-import { MouseEvent, useContext, useState } from "react";
-import SecurityContext from "../contexts/security";
+
+import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
 import ColorModeSwitch from "./ColorModeSwitch";
+import SearchInput from "./SearchInput";
+import TopNavMenu from "./TopNavMenu";
+import TopNavProfileMenu from "./TopNavProfileMenu";
 
-const pages = ["Home", "Leaderboard", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+interface Props {
+  onDoSearch?: (value: string) => void;
+}
 
-function TopNavBar() {
-  const { loggedInUser } = useContext(SecurityContext);
+const appName = "GameHub";
+const pages = [{ name: "Home" }, { name: "Leaderboard" }, { name: "Blog" }];
 
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-
-  const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
+function TopNavBar({ onDoSearch }: Props) {
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/* Logo  */}
           <ExtensionIcon sx={{ display: { xs: "none", md: "inline" } }} />
           <Typography
             variant="h6"
@@ -61,109 +35,37 @@ function TopNavBar() {
               textDecoration: "none",
             }}
           >
-            GameHub
+            {appName}
           </Typography>
 
-          <Box sx={{ flexGrow: 0, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-              onClick={handleOpenNavMenu}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+          <TopNavMenu pages={pages}>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="#app-bar-with-responsive-menu"
               sx={{
-                display: { xs: "block", md: "none" },
+                mr: 2,
+                display: { xs: "none", sm: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            GameHub
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
-          </Box>
+              {appName}
+            </Typography>
+          </TopNavMenu>
+
+          <SearchInput onSubmit={(value) => onDoSearch && onDoSearch(value)} />
+
           <Box sx={{ flexGrow: 0, p: 3 }}>
             <ColorModeSwitch />
           </Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton sx={{ p: 0 }} onClick={handleOpenUserMenu}>
-                {loggedInUser && (
-                  <Avatar
-                    alt={`${loggedInUser.firstName} ${loggedInUser.lastName}`}
-                    src={loggedInUser.avatar}
-                  />
-                )}
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            <TopNavProfileMenu />
           </Box>
         </Toolbar>
       </Container>

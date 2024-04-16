@@ -7,6 +7,7 @@ import ColorModeContext from "./contexts/colorMode";
 import SecurityContext from "./contexts/security";
 import { useTheme } from "./hooks/useTheme";
 import { User } from "./models/user";
+import { useState } from "react";
 
 const user: User = {
   id: 1,
@@ -18,15 +19,19 @@ const user: User = {
 
 function App() {
   const { theme, colorMode } = useTheme("dark");
+  const [searchInput, setSearchInput] = useState<string>("");
+  const onDoSearch = (value: string) => {
+    setSearchInput(value);
+  };
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <SecurityContext.Provider value={{ loggedInUser: user }}>
           <CssBaseline />
-          <TopNavBar />
+          <TopNavBar onDoSearch={onDoSearch} />
           <Divider component="div" sx={{ my: 3, border: "none" }} />
-          <AppBody />
+          <AppBody searchInput={searchInput} />
         </SecurityContext.Provider>
       </ThemeProvider>
     </ColorModeContext.Provider>

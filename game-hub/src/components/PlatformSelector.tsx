@@ -27,7 +27,7 @@ function PlatformSelector({ onSelectPlatform }: Props) {
   };
 
   return (
-    <FormControl sx={{ width: 320 }} variant="standard" error={!!error}>
+    <FormControl sx={{ minWidth: 300 }} variant="standard" error={!!error}>
       <InputLabel id="platform-select-label">Select Platform</InputLabel>
       <Select
         labelId="platform-select-label"

@@ -11,6 +11,7 @@ interface Props {
 function GameGrid({ gameQuery, numOfSkeletons = 9 }: Props) {
   const { data: games, error, isLoading } = useFetchGames([], gameQuery);
 
+  console.log(gameQuery);
   if (error) return error;
   let skeletons = [];
   if (isLoading) {

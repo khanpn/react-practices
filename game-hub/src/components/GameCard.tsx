@@ -12,6 +12,7 @@ import bgImagePlaceholder from "../assets/images/no-image-placeholder.webp";
 import { Game } from "../models/game";
 import getCroppedImageUrl from "../services/image-url";
 import CriticScore from "./CriticScore";
+import Emoji from "./Emoji";
 import PlatformIconList from "./PlatformIconList";
 
 export function GameCardSkeleton() {
@@ -68,7 +69,8 @@ function GameCard({ game }: Props) {
           <CriticScore score={game.metacritic}></CriticScore>
         </Stack>
         <Typography gutterBottom variant="h5" component="div">
-          {game.name}
+          {game.name + " "}
+          <Emoji rating={game.rating_top} />
         </Typography>
       </CardContent>
       <CardActions>

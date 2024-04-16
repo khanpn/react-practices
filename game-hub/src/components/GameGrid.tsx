@@ -1,13 +1,24 @@
 import { Grid } from "@mui/material";
 import { useFetchGames } from "../hooks/useFetchGames";
-import GameCard from "./GameCard";
-import GameCardSkeleton from "./GameCardSkeleton";
+import GameCard, { GameCardSkeleton } from "./GameCard";
+import { Genre } from "../models/genre";
 
-const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+interface Props {
+  selectedGenre?: Genre;
+  numOfSkeletons?: number;
+}
 
-function GameGrid() {
-  const { games, error, isLoading } = useFetchGames([]);
+function GameGrid({ selectedGenre, numOfSkeletons = 9 }: Props) {
+  const { data: games, error, isLoading } = useFetchGames([], selectedGenre);
+  console.log(selectedGenre);
   if (error) return error;
+  let skeletons = [];
+  if (isLoading) {
+    skeletons = Array(numOfSkeletons)
+      .fill(1)
+      .map((element, index) => index + element);
+  }
+
   return (
     <Grid container spacing={{ xs: 1, sm: 1, md: 3 }} direction="row">
       {isLoading &&

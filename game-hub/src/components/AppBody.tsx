@@ -1,11 +1,11 @@
-import { Box, Divider, Stack } from "@mui/material";
+import { Divider, Stack } from "@mui/material";
 import { useState } from "react";
 import { GameQuery } from "../models/gameQuery";
 import GameGrid from "./GameGrid";
+import GameHeading from "./GameHeading";
 import GameSortSelector from "./GameSortSelector";
 import GenreList from "./GenreList";
 import PlatformSelector from "./PlatformSelector";
-import GameHeading from "./GameHeading";
 
 interface Props {
   searchInput?: string;
@@ -14,15 +14,18 @@ interface Props {
 function AppBody({ searchInput }: Props) {
   const [gameQuery, setGameQuery] = useState<GameQuery>({});
   return (
-    <Stack direction="row" spacing={2}>
-      <Box sx={{ display: { xs: "none", md: "block" } }}>
-        <GenreList
-          selectedGenre={gameQuery.genre}
-          onSelectGenre={(genre) =>
-            setGameQuery({ ...gameQuery, genre: { ...genre } })
-          }
-        />
-      </Box>
+    <Stack direction="row">
+      <GenreList
+        selectedGenre={gameQuery.genre}
+        onSelectGenre={(genre) =>
+          setGameQuery({ ...gameQuery, genre: { ...genre } })
+        }
+      />
+      <Divider
+        variant="fullWidth"
+        component="div"
+        sx={{ px: 1, border: "none" }}
+      />
       <Stack direction="column">
         <GameHeading gameQuery={gameQuery} />
         <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap" pt={1}>
@@ -58,7 +61,6 @@ function AppBody({ searchInput }: Props) {
         sx={{
           mx: 1,
           border: "none",
-          display: { xs: "none", md: "block" },
         }}
       />
     </Stack>

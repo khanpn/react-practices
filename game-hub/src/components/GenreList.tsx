@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   List,
   ListItem,
   ListItemAvatar,
@@ -18,10 +19,15 @@ interface GenreListItemSkeletonProps {
 export function GenreListItemSkeleton({ index }: GenreListItemSkeletonProps) {
   return (
     <ListItem key={index}>
-      <ListItemAvatar>
+      <ListItemAvatar sx={{ minWidth: 40 }}>
         <Skeleton variant="rounded" width={40} height={40}></Skeleton>
       </ListItemAvatar>
-      <Skeleton variant="text" width={90} height={35}></Skeleton>
+      <Skeleton
+        sx={{ pl: 1, display: { xs: "none", sm: "inline", md: "inline" } }}
+        variant="text"
+        width={90}
+        height={35}
+      ></Skeleton>
     </ListItem>
   );
 }
@@ -49,11 +55,26 @@ function GenreList({
   }
 
   return (
-    <>
-      <Typography variant="h5" sx={{ pl: 2 }}>
+    <Box>
+      <Typography
+        variant="h5"
+        sx={{
+          pl: 2,
+          display: {
+            xs: "none",
+            md: "inline",
+          },
+        }}
+      >
         Genres
       </Typography>
-      <List sx={{ minWidth: 250 }}>
+      <List
+        sx={{
+          minWidth: {
+            md: 250,
+          },
+        }}
+      >
         {isLoading &&
           skeletons.map((index) => (
             <GenreListItemSkeleton
@@ -67,14 +88,20 @@ function GenreList({
             selected={selectedGenre?.id === genre.id}
             onClick={() => onSelectGenre(genre)}
           >
-            <ListItemAvatar>
+            <ListItemAvatar sx={{ minWidth: 40 }}>
               <Avatar variant="rounded" src={genre.image_background}></Avatar>
             </ListItemAvatar>
-            <ListItemText primary={genre.name} />
+            <ListItemText
+              sx={{
+                pl: 1,
+                display: { xs: "none", sm: "inline", md: "inline" },
+              }}
+              primary={genre.name}
+            />
           </ListItemButton>
         ))}
       </List>
-    </>
+    </Box>
   );
 }
 

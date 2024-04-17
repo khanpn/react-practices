@@ -26,7 +26,7 @@ function TopNavBar({ onDoSearch }: Props) {
             component="a"
             href="#app-bar-with-responsive-menu"
             sx={{
-              mr: 2,
+              mx: 1,
               display: { xs: "none", md: "flex" },
               fontFamily: "monospace",
               fontWeight: 700,

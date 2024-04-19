@@ -23,7 +23,7 @@ export function GenreListItemSkeleton({ index }: GenreListItemSkeletonProps) {
         <Skeleton variant="rounded" width={40} height={40}></Skeleton>
       </ListItemAvatar>
       <Skeleton
-        sx={{ pl: 1, display: { xs: "none", sm: "inline", md: "inline" } }}
+        sx={{ ml: 1, display: { xs: "none", sm: "inline", md: "inline" } }}
         variant="text"
         width={90}
         height={35}
@@ -43,9 +43,9 @@ function GenreList({
   numOfSkeletons = 10,
   onSelectGenre,
 }: Props) {
-  const { data: genres, error, isLoading } = useFetchGenres([]);
+  const { data: genres, error, isLoading } = useFetchGenres();
 
-  if (error) return error;
+  if (error) return error.message;
 
   let skeletons: number[] = [];
   if (isLoading) {
@@ -82,7 +82,7 @@ function GenreList({
               index={index}
             ></GenreListItemSkeleton>
           ))}
-        {genres.map((genre) => (
+        {genres?.map((genre) => (
           <ListItemButton
             key={genre.id}
             selected={selectedGenre?.id === genre.id}

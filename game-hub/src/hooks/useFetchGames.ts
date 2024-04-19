@@ -3,7 +3,7 @@ import { Game } from "../models/game";
 import { GameQuery } from "../models/gameQuery";
 import { useFetchApi } from "./useFetchApi";
 
-export const useFetchGames = (initialValue: Game[], gameQuery?: GameQuery) => {
+export const useFetchGames = (gameQuery?: GameQuery) => {
   const requestConfig: AxiosRequestConfig = {
     params: {
       genres: gameQuery?.genre?.id,
@@ -12,11 +12,5 @@ export const useFetchGames = (initialValue: Game[], gameQuery?: GameQuery) => {
       search: gameQuery?.search,
     },
   };
-  const deps = [
-    gameQuery?.genre?.id,
-    gameQuery?.platform?.id,
-    gameQuery?.sortOrder,
-    gameQuery?.search,
-  ];
-  return useFetchApi<Game[]>("/games", initialValue, requestConfig, deps);
+  return useFetchApi<Game[]>("/games", { requestConfig });
 };

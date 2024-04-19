@@ -23,23 +23,20 @@ export function GameCardSkeleton() {
       <CardMedia sx={{ height: 140 }}>
         <Skeleton
           variant="rectangular"
-          sx={{ height: "100%", bgcolor: bgCorlor }}
+          sx={{ height: 400, width: 600, bgcolor: bgCorlor }}
         />
       </CardMedia>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          <Skeleton variant="text" sx={{ bgcolor: bgCorlor }} />
-        </Typography>
         <Stack direction="row" justifyContent="space-between">
           <Skeleton
             variant="rectangular"
             sx={{ width: "80%", bgcolor: bgCorlor }}
           />
-          <Skeleton
-            variant="circular"
-            sx={{ width: "30px", bgcolor: bgCorlor }}
-          />
+          <Skeleton variant="circular" sx={{ width: 37, bgcolor: bgCorlor }} />
         </Stack>
+        <Typography gutterBottom variant="h5" component="div">
+          <Skeleton height={40} variant="text" sx={{ bgcolor: bgCorlor }} />
+        </Typography>
       </CardContent>
       <CardActions sx={{ pl: 2 }}>
         <Skeleton

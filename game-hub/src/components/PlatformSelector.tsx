@@ -18,6 +18,7 @@ function PlatformSelector({ onSelectPlatform }: Props) {
   const { data: platforms, error } = useFetchPlatforms([]);
 
   const mapValueToPlatform = (value: string) => {
+    if (!platforms) return undefined;
     const index = platforms.findIndex((platform) => {
       return platform.slug === value;
     });
@@ -52,13 +53,15 @@ function PlatformSelector({ onSelectPlatform }: Props) {
         <MenuItem key={-1} value="">
           <em>All Platforms</em>
         </MenuItem>
-        {platforms.map((platform) => (
+        {platforms?.map((platform) => (
           <MenuItem key={platform.id} value={platform.slug}>
             {platform.name}
           </MenuItem>
         ))}
       </Select>
-      {!!error && <FormHelperText color="error">{error}</FormHelperText>}
+      {!!error && (
+        <FormHelperText color="error">{error.message}</FormHelperText>
+      )}
     </FormControl>
   );
 }

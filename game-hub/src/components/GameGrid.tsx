@@ -9,9 +9,9 @@ interface Props {
 }
 
 function GameGrid({ gameQuery, numOfSkeletons = 9 }: Props) {
-  const { data: games, error, isLoading } = useFetchGames([], gameQuery);
+  const { data: games, error, isLoading } = useFetchGames(gameQuery);
 
-  if (error) return error;
+  if (error) return error.message;
   let skeletons = [];
   if (isLoading) {
     skeletons = Array(numOfSkeletons)
@@ -27,7 +27,7 @@ function GameGrid({ gameQuery, numOfSkeletons = 9 }: Props) {
             <GameCardSkeleton />
           </Grid>
         ))}
-      {games.map((game) => (
+      {games?.map((game) => (
         <Grid item key={`${game.id}`} xs={12} sm={6} md={4} xl={2}>
           <GameCard game={game}></GameCard>
         </Grid>

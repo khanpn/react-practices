@@ -8,6 +8,7 @@ import SecurityContext from "./contexts/security";
 import { useTheme } from "./hooks/useTheme";
 import { User } from "./models/user";
 import { useState } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const user: User = {
   id: 1,
@@ -16,6 +17,8 @@ const user: User = {
   lastName: "Nguyen",
   avatar: avatarUrl,
 };
+
+const queryClient = new QueryClient();
 
 function App() {
   const { theme, colorMode } = useTheme("dark");
@@ -28,10 +31,12 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <SecurityContext.Provider value={{ loggedInUser: user }}>
-          <CssBaseline />
-          <TopNavBar onDoSearch={onDoSearch} />
-          <Divider component="div" sx={{ my: 3, border: "none" }} />
-          <AppBody searchInput={searchInput} />
+          <QueryClientProvider client={queryClient}>
+            <CssBaseline />
+            <TopNavBar onDoSearch={onDoSearch} />
+            <Divider component="div" sx={{ my: 3, border: "none" }} />
+            <AppBody searchInput={searchInput} />
+          </QueryClientProvider>
         </SecurityContext.Provider>
       </ThemeProvider>
     </ColorModeContext.Provider>

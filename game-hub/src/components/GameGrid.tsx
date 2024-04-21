@@ -1,8 +1,9 @@
-import { Button, Grid } from "@mui/material";
+import { CircularProgress, Grid } from "@mui/material";
+import React from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { useFetchGames } from "../hooks/useFetchGames";
 import { GameQuery } from "../models/gameQuery";
 import GameCard, { GameCardSkeleton } from "./GameCard";
-import React from "react";
 
 interface Props {
   gameQuery?: GameQuery;
@@ -10,16 +11,11 @@ interface Props {
 }
 
 function GameGrid({ gameQuery, numOfSkeletons = 9 }: Props) {
-  const {
-    data,
-    error,
-    isLoading,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-  } = useFetchGames(gameQuery);
+  const { data, error, isLoading, hasNextPage, fetchNextPage } =
+    useFetchGames(gameQuery);
 
   if (error) return error.message;
+
   let skeletons = [];
   if (isLoading) {
     skeletons = Array(numOfSkeletons)
@@ -27,8 +23,16 @@ function GameGrid({ gameQuery, numOfSkeletons = 9 }: Props) {
       .map((element, index) => index + element);
   }
 
+  const fetchedGamesCount =
+    data?.pages.reduce((total, page) => total + page.results.length, 0) || 0;
+
   return (
-    <>
+    <InfiniteScroll
+      dataLength={fetchedGamesCount}
+      hasMore={hasNextPage}
+      next={() => fetchNextPage()}
+      loader={<CircularProgress color="inherit" />}
+    >
       <Grid container spacing={{ xs: 1, sm: 1, md: 3 }} direction="row">
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
@@ -46,12 +50,7 @@ function GameGrid({ gameQuery, numOfSkeletons = 9 }: Props) {
             </Grid>
           ))}
       </Grid>
-      {hasNextPage && (
-        <Button onClick={() => fetchNextPage()}>
-          {isFetchingNextPage ? "Loading..." : "Load more"}
-        </Button>
-      )}
-    </>
+    </InfiniteScroll>
   );
 }
 

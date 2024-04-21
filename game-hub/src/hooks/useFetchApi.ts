@@ -1,30 +1,33 @@
 import { useQuery } from "@tanstack/react-query";
 import { AxiosRequestConfig } from "axios";
-import apiClient from "../services/api-client";
+import apiClient, { FetchApiDataResponse } from "../services/apiClient";
 
-interface FetchApiDataResponse<T> {
-  count: number;
-  results: T;
-}
-
-interface FetchApiConfig<T> {
+export interface FetchApiConfig<T> {
   initialData?: T;
   requestConfig?: AxiosRequestConfig;
+  staleTime?: number;
+  initialDataUpdatedAt?: number;
+}
+
+export function initialDataFn<T>(
+  initialData: T | undefined
+): FetchApiDataResponse<T> | undefined {
+  return initialData ? { results: initialData } : undefined;
 }
 
 export const useFetchApi = <T>(
   endpoint: string,
   config?: FetchApiConfig<T>
 ) => {
-  const { isLoading, error, data } = useQuery<T, Error>({
-    initialData: config?.initialData,
+  const { isLoading, error, data } = useQuery<FetchApiDataResponse<T>, Error>({
+    initialData: initialDataFn<T>(config?.initialData),
     queryKey: [endpoint, config?.requestConfig],
     queryFn: () =>
-      apiClient
-        .get<FetchApiDataResponse<T>>(endpoint, {
-          ...config?.requestConfig,
-        })
-        .then((res) => res.data.results),
+      apiClient.getAll<T>(endpoint, {
+        ...config?.requestConfig,
+      }),
+    staleTime: config?.staleTime,
+    initialDataUpdatedAt: config?.initialDataUpdatedAt,
   });
 
   return { data, error, isLoading };

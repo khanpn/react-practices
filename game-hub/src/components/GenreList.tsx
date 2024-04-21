@@ -43,9 +43,11 @@ function GenreList({
   numOfSkeletons = 10,
   onSelectGenre,
 }: Props) {
-  const { data: genres, error, isLoading } = useFetchGenres();
+  const { data, error, isLoading } = useFetchGenres();
 
   if (error) return error.message;
+
+  const genres = data?.results;
 
   let skeletons: number[] = [];
   if (isLoading) {

@@ -18,7 +18,13 @@ const user: User = {
   avatar: avatarUrl,
 };
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function App() {
   const { theme, colorMode } = useTheme("dark");

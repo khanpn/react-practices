@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from "axios";
 import { Game } from "../models/game";
 import { GameQuery } from "../models/gameQuery";
-import { useFetchApi } from "./useFetchApi";
+import { useInfiniteFetchApi } from "./useInfiniteFetchApi";
 
 export const useFetchGames = (gameQuery?: GameQuery) => {
   const requestConfig: AxiosRequestConfig = {
@@ -12,5 +12,5 @@ export const useFetchGames = (gameQuery?: GameQuery) => {
       search: gameQuery?.search,
     },
   };
-  return useFetchApi<Game[]>("/games", { requestConfig });
+  return useInfiniteFetchApi<Game[]>("/games", { requestConfig });
 };

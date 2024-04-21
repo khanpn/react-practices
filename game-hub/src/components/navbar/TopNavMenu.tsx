@@ -1,15 +1,10 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import {
-  Box,
-  Button,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
-} from "@mui/material";
+import { Box, IconButton, Menu, MenuItem, Typography } from "@mui/material";
 import { MouseEvent, ReactNode, useState } from "react";
+import { NavLink } from "react-router-dom";
 
-interface Page {
+export interface Page {
+  path: string;
   name: string;
 }
 
@@ -61,7 +56,13 @@ function TopNavMenu({ pages, children }: Props) {
         >
           {pages.map((page) => (
             <MenuItem key={page.name}>
-              <Typography textAlign="center">{page.name}</Typography>
+              <NavLink
+                key={page.name}
+                to={page.path}
+                style={{ textDecoration: "none" }}
+              >
+                <Typography color="white">{page.name}</Typography>
+              </NavLink>
             </MenuItem>
           ))}
         </Menu>
@@ -71,12 +72,15 @@ function TopNavMenu({ pages, children }: Props) {
 
       <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
         {pages.map((page) => (
-          <Button
+          <NavLink
             key={page.name}
-            sx={{ my: 2, color: "white", display: "block" }}
+            to={page.path}
+            style={{ textDecoration: "none" }}
           >
-            {page.name}
-          </Button>
+            <Typography color="white" variant="h5" sx={{ mx: 1 }}>
+              {page.name}
+            </Typography>
+          </NavLink>
         ))}
       </Box>
     </>

@@ -3,16 +3,39 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Stack,
+  SvgIconTypeMap,
   Tooltip,
   Typography,
 } from "@mui/material";
-import { MouseEvent, useContext, useState } from "react";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
+import React, { MouseEvent, useContext, useState } from "react";
 import AuthContext from "../../contexts/authContext";
+import { User } from "../../models/user";
+import { NavLink } from "react-router-dom";
+import { OverridableComponent } from "@mui/material/OverridableComponent";
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+interface ProfileMenuItem {
+  path: string;
+  name: string;
+  icon?: OverridableComponent<SvgIconTypeMap>;
+}
+
+const menuItems: ProfileMenuItem[] = [
+  { path: "/profile", name: "Profile", icon: AccountCircleOutlinedIcon },
+  { path: "#", name: "Logout", icon: LogoutIcon },
+];
+
+const anonymous: User = {
+  id: -1,
+  username: "",
+  firstName: "",
+  lastName: "",
+};
 
 function TopNavProfileMenu() {
-  const { user: loggedInUser } = useContext(AuthContext);
+  const { user = anonymous } = useContext(AuthContext);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -24,16 +47,13 @@ function TopNavProfileMenu() {
     setAnchorElUser(null);
   };
 
+  const userDisplayName = `${user.firstName} ${user.lastName}`;
+
   return (
     <>
       <Tooltip title="Open settings">
         <IconButton sx={{ p: 0 }} onClick={handleOpenUserMenu}>
-          {loggedInUser && (
-            <Avatar
-              alt={`${loggedInUser.firstName} ${loggedInUser.lastName}`}
-              src={loggedInUser.avatar}
-            />
-          )}
+          <Avatar alt={userDisplayName} src={user.avatar} />
         </IconButton>
       </Tooltip>
       <Menu
@@ -52,9 +72,17 @@ function TopNavProfileMenu() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        {settings.map((setting) => (
-          <MenuItem key={setting}>
-            <Typography textAlign="center">{setting}</Typography>
+        {menuItems.map((item, index) => (
+          <MenuItem key={index}>
+            <NavLink style={{ textDecoration: "none" }} to={item.name}>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                {item?.icon &&
+                  React.createElement(item.icon, { color: "primary" })}
+                <Typography color="primary" variant="body2">
+                  {item.name}
+                </Typography>
+              </Stack>
+            </NavLink>
           </MenuItem>
         ))}
       </Menu>

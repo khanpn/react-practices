@@ -2,13 +2,16 @@ import ExtensionIcon from "@mui/icons-material/Extension";
 import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
 import ColorModeSwitch from "../ColorModeSwitch";
 import SearchInput from "../InputSearch";
-import TopNavMenu from "./TopNavMenu";
+import TopNavMenu, { Page } from "./TopNavMenu";
 import TopNavProfileMenu from "./TopNavProfileMenu";
 import { useContext } from "react";
 import GlobalSearchContext from "../../contexts/globalSearchContext";
 
 const appName = "GameHub";
-const pages = [{ name: "Home" }, { name: "Leaderboard" }, { name: "Blog" }];
+const pages: Page[] = [
+  { path: "/", name: "Home" },
+  { path: "/", name: "Leaderboard" },
+];
 
 function TopNavBar() {
   const { dispatch: dispatchSearch } = useContext(GlobalSearchContext);
@@ -26,7 +29,7 @@ function TopNavBar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mx: 1,
               display: { xs: "none", md: "flex" },
@@ -45,7 +48,7 @@ function TopNavBar() {
               variant="h5"
               noWrap
               component="a"
-              href="#app-bar-with-responsive-menu"
+              href="/"
               sx={{
                 mr: 2,
                 display: { xs: "none", sm: "flex", md: "none" },

@@ -5,8 +5,8 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { useFetchPlatforms } from "../hooks/useFetchPlatforms";
-import { Platform } from "../models/platform";
+import { useFetchPlatforms } from "../../hooks/useFetchPlatforms";
+import { Platform } from "../../models/platform";
 import { useState } from "react";
 
 interface Props {

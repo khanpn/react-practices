@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { Platform } from "../models/platform";
+import { Platform } from "../../models/platform";
 import PlatformIcon from "./PlatformIcon";
 
 interface Props {

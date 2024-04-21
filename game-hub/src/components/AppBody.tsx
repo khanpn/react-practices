@@ -1,11 +1,13 @@
 import { Divider, Stack } from "@mui/material";
 import { useContext, useState } from "react";
 import { GameQuery } from "../models/gameQuery";
-import GameGrid from "./GameGrid";
-import GameHeading from "./GameHeading";
-import GameSortSelector from "./GameSortSelector";
-import GenreList from "./GenreList";
-import PlatformSelector from "./PlatformSelector";
+import {
+  GameGrid,
+  GameHeading,
+  GameSortSelector,
+  GenreList,
+  PlatformSelector,
+} from "./game";
 import GlobalSearchContext from "../contexts/globalSearchContext";
 
 function AppBody() {

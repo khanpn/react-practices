@@ -8,9 +8,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import bgImagePlaceholder from "../assets/images/no-image-placeholder.webp";
-import { Game } from "../models/game";
-import getCroppedImageUrl from "../services/imageUrl";
+import bgImagePlaceholder from "../../assets/images/no-image-placeholder.webp";
+import { Game } from "../../models/game";
+import getCroppedImageUrl from "../../services/imageUrl";
 import CriticScore from "./CriticScore";
 import Emoji from "./Emoji";
 import PlatformIconList from "./PlatformIconList";

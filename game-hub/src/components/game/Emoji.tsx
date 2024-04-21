@@ -1,6 +1,6 @@
-import bullsEye from "../assets/emojis/bulls-eye.webp";
-import meh from "../assets/emojis/meh.webp";
-import thumbsUp from "../assets/emojis/thumbs-up.webp";
+import bullsEye from "../../assets/emojis/bulls-eye.webp";
+import meh from "../../assets/emojis/meh.webp";
+import thumbsUp from "../../assets/emojis/thumbs-up.webp";
 
 interface Props {
   rating: number;

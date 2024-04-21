@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { MouseEvent, useContext, useState } from "react";
-import AuthContext from "../contexts/authContext";
+import AuthContext from "../../contexts/authContext";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 

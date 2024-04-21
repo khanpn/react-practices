@@ -1,8 +1,8 @@
 import { CircularProgress, Grid } from "@mui/material";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useFetchGames } from "../hooks/useFetchGames";
-import { GameQuery } from "../models/gameQuery";
+import { useFetchGames } from "../../hooks/useFetchGames";
+import { GameQuery } from "../../models/gameQuery";
 import GameCard, { GameCardSkeleton } from "./GameCard";
 
 interface Props {

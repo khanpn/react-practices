@@ -9,8 +9,8 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import { useFetchGenres } from "../hooks/useFetchGenres";
-import { Genre } from "../models/genre";
+import { useFetchGenres } from "../../hooks/useFetchGenres";
+import { Genre } from "../../models/genre";
 
 interface GenreListItemSkeletonProps {
   index: number;

@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchInput({ onSubmit }: Props) {
+function InputSearch({ onSubmit }: Props) {
   const inputRef = useRef<Element>();
   return (
     <Search>
@@ -71,4 +71,4 @@ function SearchInput({ onSubmit }: Props) {
   );
 }
 
-export default SearchInput;
+export default InputSearch;

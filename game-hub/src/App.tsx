@@ -3,11 +3,11 @@ import { useReducer } from "react";
 import "./App.css";
 
 import AppBody from "./components/AppBody";
-import TopNavBar from "./components/TopNavBar";
 import GlobalSearchContext from "./contexts/globalSearchContext";
 import AuthProvider from "./providers/authProvider";
 import ColorModeProvider from "./providers/colorModeProvider";
 import globalSearchReducer from "./reducers/globalSearchReducer";
+import { TopNavBar } from "./components";
 
 function App() {
   const [searchText, dispatchSearch] = useReducer(globalSearchReducer, "");

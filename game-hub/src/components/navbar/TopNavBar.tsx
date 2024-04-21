@@ -1,11 +1,11 @@
 import ExtensionIcon from "@mui/icons-material/Extension";
 import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
-import ColorModeSwitch from "./ColorModeSwitch";
-import SearchInput from "./SearchInput";
+import ColorModeSwitch from "../ColorModeSwitch";
+import SearchInput from "../InputSearch";
 import TopNavMenu from "./TopNavMenu";
 import TopNavProfileMenu from "./TopNavProfileMenu";
 import { useContext } from "react";
-import GlobalSearchContext from "../contexts/globalSearchContext";
+import GlobalSearchContext from "../../contexts/globalSearchContext";
 
 const appName = "GameHub";
 const pages = [{ name: "Home" }, { name: "Leaderboard" }, { name: "Blog" }];

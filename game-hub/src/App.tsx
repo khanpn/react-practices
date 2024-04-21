@@ -1,40 +1,29 @@
-import { CssBaseline, Divider, ThemeProvider } from "@mui/material";
+import { Divider } from "@mui/material";
+import { useReducer } from "react";
 import "./App.css";
-import avatarUrl from "./assets/avatars/1.jpg";
+
 import AppBody from "./components/AppBody";
 import TopNavBar from "./components/TopNavBar";
-import ColorModeContext from "./contexts/colorMode";
-import SecurityContext from "./contexts/security";
-import { useTheme } from "./hooks/useTheme";
-import { User } from "./models/user";
-import { useState } from "react";
-
-const user: User = {
-  id: 1,
-  username: "khanhn",
-  firstName: "Khanh",
-  lastName: "Nguyen",
-  avatar: avatarUrl,
-};
+import GlobalSearchContext from "./contexts/globalSearchContext";
+import AuthProvider from "./providers/authProvider";
+import ColorModeProvider from "./providers/colorModeProvider";
+import globalSearchReducer from "./reducers/globalSearchReducer";
 
 function App() {
-  const { theme, colorMode } = useTheme("dark");
-  const [searchInput, setSearchInput] = useState<string>("");
-  const onDoSearch = (value: string) => {
-    setSearchInput(value);
-  };
+  const [searchText, dispatchSearch] = useReducer(globalSearchReducer, "");
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <SecurityContext.Provider value={{ loggedInUser: user }}>
-          <CssBaseline />
-          <TopNavBar onDoSearch={onDoSearch} />
+    <AuthProvider>
+      <ColorModeProvider>
+        <GlobalSearchContext.Provider
+          value={{ searchText, dispatch: dispatchSearch }}
+        >
+          <TopNavBar />
           <Divider component="div" sx={{ my: 3, border: "none" }} />
-          <AppBody searchInput={searchInput} />
-        </SecurityContext.Provider>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+          <AppBody />
+        </GlobalSearchContext.Provider>
+      </ColorModeProvider>
+    </AuthProvider>
   );
 }
 

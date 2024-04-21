@@ -1,10 +1,10 @@
 import React from "react";
 
-interface ColorModeContextData {
+interface ColorModeContextType {
   toggleColorMode: () => void;
 }
 
-const ColorModeContext = React.createContext<ColorModeContextData>({
+const ColorModeContext = React.createContext<ColorModeContextType>({
   toggleColorMode: () => {},
 });
 

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import ColorModeContext from "../contexts/colorMode";
+import ColorModeContext from "../contexts/colorModeContext";
 import { Typography } from "@mui/material";
 
 function ColorModeSwitch() {

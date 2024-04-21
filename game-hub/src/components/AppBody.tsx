@@ -1,17 +1,15 @@
 import { Divider, Stack } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { GameQuery } from "../models/gameQuery";
 import GameGrid from "./GameGrid";
 import GameHeading from "./GameHeading";
 import GameSortSelector from "./GameSortSelector";
 import GenreList from "./GenreList";
 import PlatformSelector from "./PlatformSelector";
+import GlobalSearchContext from "../contexts/globalSearchContext";
 
-interface Props {
-  searchInput?: string;
-}
-
-function AppBody({ searchInput }: Props) {
+function AppBody() {
+  const { searchText } = useContext(GlobalSearchContext);
   const [gameQuery, setGameQuery] = useState<GameQuery>({});
   return (
     <Stack direction="row">
@@ -54,7 +52,7 @@ function AppBody({ searchInput }: Props) {
             border: "none",
           }}
         />
-        <GameGrid gameQuery={{ ...gameQuery, search: searchInput }} />
+        <GameGrid gameQuery={{ ...gameQuery, search: searchText }} />
       </Stack>
       <Divider
         component="div"

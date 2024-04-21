@@ -1,19 +1,21 @@
 import ExtensionIcon from "@mui/icons-material/Extension";
-
 import { AppBar, Box, Container, Toolbar, Typography } from "@mui/material";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
 import TopNavMenu from "./TopNavMenu";
 import TopNavProfileMenu from "./TopNavProfileMenu";
-
-interface Props {
-  onDoSearch?: (value: string) => void;
-}
+import { useContext } from "react";
+import GlobalSearchContext from "../contexts/globalSearchContext";
 
 const appName = "GameHub";
 const pages = [{ name: "Home" }, { name: "Leaderboard" }, { name: "Blog" }];
 
-function TopNavBar({ onDoSearch }: Props) {
+function TopNavBar() {
+  const { dispatch: dispatchSearch } = useContext(GlobalSearchContext);
+
+  const onDoSearch = (value: string) =>
+    dispatchSearch({ type: "SEARCH", payload: value });
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

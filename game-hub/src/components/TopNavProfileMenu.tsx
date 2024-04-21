@@ -7,12 +7,12 @@ import {
   Typography,
 } from "@mui/material";
 import { MouseEvent, useContext, useState } from "react";
-import SecurityContext from "../contexts/security";
+import AuthContext from "../contexts/authContext";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function TopNavProfileMenu() {
-  const { loggedInUser } = useContext(SecurityContext);
+  const { user: loggedInUser } = useContext(AuthContext);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 

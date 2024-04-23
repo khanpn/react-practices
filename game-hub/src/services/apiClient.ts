@@ -8,8 +8,10 @@ export interface FetchApiDataResponse<T> {
 export interface ApiClient {
   getAll: <T>(
     endpoint: string,
-    config: AxiosRequestConfig
+    config?: AxiosRequestConfig
   ) => Promise<FetchApiDataResponse<T>>;
+
+  get: <T>(endpoint: string, config?: AxiosRequestConfig) => Promise<T>;
 }
 
 export class DefaultApiClient implements ApiClient {
@@ -21,13 +23,17 @@ export class DefaultApiClient implements ApiClient {
     },
   });
 
-  getAll<T>(endpoint: string, config: AxiosRequestConfig<any>) {
+  get<T>(endpoint: string, config?: AxiosRequestConfig<any>) {
+    return this.axiosInstance.get<T>(endpoint, config).then((res) => res.data);
+  }
+
+  getAll<T>(endpoint: string, config?: AxiosRequestConfig<any>) {
     return this.axiosInstance
       .get<FetchApiDataResponse<T>>(endpoint, config)
       .then((res) => res.data);
   }
 }
 
-const apiClientInstance: ApiClient = new DefaultApiClient();
+const apiClient: ApiClient = new DefaultApiClient();
 
-export default apiClientInstance;
+export default apiClient;

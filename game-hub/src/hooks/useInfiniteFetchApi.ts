@@ -1,33 +1,31 @@
-import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
-import apiClient, { FetchApiDataResponse } from "../services/apiClient";
-import { FetchApiConfig, initialDataFn } from "./useFetchApi";
+import {
+  InfiniteData,
+  QueryFunctionContext,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
+import { FetchApiDataResponse } from "../services/apiClient";
+import { BaseFetchApiConfig } from "./useFetchApi";
 
-interface InfiniteFetchApiConfig<T> extends FetchApiConfig<T> {
+interface InfiniteFetchApiConfig<T> extends BaseFetchApiConfig<T> {
   initialPageParam?: number;
+  queryFn: (context: QueryFunctionContext) => Promise<FetchApiDataResponse<T>>;
 }
 
 export function initialDataForInfiniteFn<T>(
   initialData: T | undefined
 ): InfiniteData<FetchApiDataResponse<T>> | undefined {
   if (initialData === undefined) return undefined;
-  const apiResponse = initialDataFn<T>(initialData);
+  const apiResponse = initialData ? { results: initialData } : undefined;
   if (!apiResponse) return undefined;
   return { pages: [apiResponse], pageParams: [1] };
 }
 
-export const useInfiniteFetchApi = <T>(
-  endpoint: string,
-  config?: InfiniteFetchApiConfig<T>
-) => {
+export const useInfiniteFetchApi = <T>(config: InfiniteFetchApiConfig<T>) => {
   return useInfiniteQuery<FetchApiDataResponse<T>, Error>({
     initialData: initialDataForInfiniteFn<T>(config?.initialData),
     initialPageParam: config?.initialPageParam || 1,
-    queryKey: [endpoint, config?.requestConfig],
-    queryFn: ({ pageParam }) =>
-      apiClient.getAll<T>(endpoint, {
-        ...config?.requestConfig,
-        params: { ...config?.requestConfig?.params, page: pageParam },
-      }),
+    queryKey: config.queryKey,
+    queryFn: (context: QueryFunctionContext) => config.queryFn(context),
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.next ? allPages.length + 1 : undefined;
     },

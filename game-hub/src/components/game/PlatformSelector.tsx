@@ -15,9 +15,7 @@ interface Props {
 
 function PlatformSelector({ onSelectPlatform }: Props) {
   const [selectedValue, setSelectedValue] = useState("");
-  const { data, error } = useFetchPlatforms([]);
-
-  const platforms = data?.results;
+  const { data: platforms, error } = useFetchPlatforms([]);
 
   const mapValueToPlatform = (value: string) => {
     if (!platforms) return undefined;

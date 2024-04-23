@@ -5,6 +5,7 @@ import PrivateRoutes from "./components/PrivateRoutes";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import ErrorPage from "./pages/ErrorPage";
+import GameDetailPage from "./pages/GameDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <HomePage />,
+      },
+      {
+        path: "/games/:slug",
+        element: <GameDetailPage />,
       },
       {
         path: "/login",

@@ -14,6 +14,8 @@ import getCroppedImageUrl from "../../services/imageUrl";
 import CriticScore from "./CriticScore";
 import Emoji from "./Emoji";
 import PlatformIconList from "./PlatformIconList";
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 export function GameCardSkeleton() {
   const bgCorlor = "gray.500";
@@ -53,10 +55,17 @@ interface Props {
 }
 
 function GameCard({ game }: Props) {
+  const [raised, setRaised] = useState(false);
   const bgImage =
     getCroppedImageUrl(game.background_image) || bgImagePlaceholder;
+  const toggleMouseOverEffect = () => setRaised((previous) => !previous);
   return (
-    <Card sx={{ width: "100%" }}>
+    <Card
+      sx={{ width: "100%" }}
+      raised={raised}
+      onMouseOut={toggleMouseOverEffect}
+      onMouseOver={toggleMouseOverEffect}
+    >
       <CardMedia sx={{ height: 140 }} image={bgImage} title={game.name} />
       <CardContent>
         <Stack direction="row" justifyContent="space-between">
@@ -71,7 +80,9 @@ function GameCard({ game }: Props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
+        <NavLink to={`games/${game.slug}`}>
+          <Button size="small">Details</Button>
+        </NavLink>
       </CardActions>
     </Card>
   );

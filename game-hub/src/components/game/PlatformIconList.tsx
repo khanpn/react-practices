@@ -3,11 +3,11 @@ import { Platform } from "../../models/platform";
 import PlatformIcon from "./PlatformIcon";
 
 interface Props {
-  platforms: Platform[];
+  platforms?: Platform[];
   maxLength?: number;
 }
 
-function PlatformIconList({ platforms, maxLength = 4 }: Props) {
+function PlatformIconList({ platforms = [], maxLength = 4 }: Props) {
   const displayItems = platforms.slice(0, maxLength);
   const remainingCount = platforms.length - maxLength;
   return (

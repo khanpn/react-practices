@@ -77,7 +77,7 @@ function TopNavMenu({ pages, children }: Props) {
             to={page.path}
             style={{ textDecoration: "none" }}
           >
-            <Typography color="primary" variant="h5" sx={{ mx: 1 }}>
+            <Typography color="white" variant="h5" sx={{ mx: 1 }}>
               {page.name}
             </Typography>
           </NavLink>

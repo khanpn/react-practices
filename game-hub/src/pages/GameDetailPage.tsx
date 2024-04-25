@@ -7,9 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
-import ExpandableText from "../components/ExpandableText";
-import GameMeta from "../components/game/GameMeta";
-import PlatformIconList from "../components/game/PlatformIconList";
+import { ExpandableText, GameMeta, PlatformIconList } from "../components";
+import GameMedia from "../components/game/GameMedia";
 import { useFetchGame } from "../hooks/useFetchGame";
 
 function GameDetailPage() {
@@ -43,6 +42,8 @@ function GameDetailPage() {
       <Box sx={{ my: 2 }}>
         <Typography variant="h3">{game?.name}</Typography>
       </Box>
+      <GameMedia game={game} />
+
       <Stack direction="column" spacing={1} sx={{ my: 2 }}>
         <Typography variant="h5">About</Typography>
         <ExpandableText variant="body1">{game?.description_raw}</ExpandableText>

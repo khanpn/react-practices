@@ -5,9 +5,9 @@ interface Props {
   gameQuery: GameQuery;
 }
 
-function GameHeading({ gameQuery: { genre, platform } }: Props) {
-  const platformTitle = platform ? platform.name + " " : "";
-  const genreTitle = genre ? genre.name + " " : "";
+function GameHeading({ gameQuery: { genres, platforms } }: Props) {
+  const platformTitle = platforms ? platforms[0].name + " " : "";
+  const genreTitle = genres ? genres[0].name + " " : "";
   const title = `${platformTitle}${genreTitle}Games`;
   return <Typography variant="h4">{title}</Typography>;
 }

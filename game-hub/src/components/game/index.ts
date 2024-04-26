@@ -4,4 +4,6 @@ export { default as PlatformSelector } from "./PlatformSelector";
 export { default as GameSortSelector } from "./GameSortSelector";
 export { default as GameHeading } from "./GameHeading";
 export { default as PlatformIconList } from "./PlatformIconList";
+export { default as GameMedia } from "./GameMedia";
 export { default as GameMeta } from "./GameMeta";
+export { default as SimilarGamesGrid } from "./SimilarGamesGrid";

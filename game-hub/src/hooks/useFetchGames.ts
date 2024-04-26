@@ -9,8 +9,10 @@ const API_PATH = "/games";
 export const useFetchGames = (gameQuery?: GameQuery) => {
   const requestConfig: AxiosRequestConfig = {
     params: {
-      genres: gameQuery?.genre?.id,
-      parent_platforms: gameQuery?.platform?.id,
+      genres: gameQuery?.genres?.map((genre) => genre.id).join(","),
+      parent_platforms: gameQuery?.platforms
+        ?.map((platform) => platform.id)
+        .join(","),
       ordering: gameQuery?.sortOrder,
       search: gameQuery?.search,
     },

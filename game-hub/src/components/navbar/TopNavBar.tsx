@@ -20,7 +20,7 @@ function TopNavBar() {
     dispatchSearch({ type: "SEARCH", payload: value });
 
   return (
-    <AppBar position="static">
+    <AppBar position="relative" sx={{ zIndex: 999 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* Logo  */}

@@ -20,4 +20,5 @@ export interface Game {
   released: string;
   website: string;
   esrb_rating: EsrbRating;
+  dominant_color: string;
 }

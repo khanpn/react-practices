@@ -19,17 +19,17 @@ function ExpandableText({ children, limit = 250, variant = "body1" }: Props) {
     <Box>
       <Typography variant={variant} component="span">
         {displayText}
+        {expanded ? "" : "..."}
+        {overflow && (
+          <Button
+            onClick={() => setExpanded((previous) => !previous)}
+            variant="text"
+            sx={{ textTransform: "none", display: "inline" }}
+          >
+            {expanded ? "Show less" : "Read more"}
+          </Button>
+        )}
       </Typography>
-      {expanded ? "" : "..."}
-      {overflow && (
-        <Button
-          onClick={() => setExpanded((previous) => !previous)}
-          variant="text"
-          sx={{ textTransform: "none", display: "inline" }}
-        >
-          {expanded ? "Show less" : "Read more"}
-        </Button>
-      )}
     </Box>
   );
 }

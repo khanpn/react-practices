@@ -2,8 +2,8 @@ import { Genre } from "./genre";
 import { Platform } from "./platform";
 
 export interface GameQuery {
-  genre?: Genre;
-  platform?: Platform;
+  genres?: Genre[];
+  platforms?: Platform[];
   sortOrder?: string;
   search?: string;
 }

@@ -14,11 +14,11 @@ function HomePage() {
   const { searchText } = useContext(GlobalSearchContext);
   const [gameQuery, setGameQuery] = useState<GameQuery>({});
   return (
-    <Stack direction="row">
+    <Stack direction="row" sx={{ mt: 2 }}>
       <GenreList
-        selectedGenre={gameQuery.genre}
+        selectedGenre={gameQuery.genres ? gameQuery.genres[0] : undefined}
         onSelectGenre={(genre) =>
-          setGameQuery({ ...gameQuery, genre: { ...genre } })
+          setGameQuery({ ...gameQuery, genres: [{ ...genre }] })
         }
       />
       <Divider
@@ -33,7 +33,7 @@ function HomePage() {
             onSelectPlatform={(platform) =>
               setGameQuery({
                 ...gameQuery,
-                platform: platform ? { ...platform } : undefined,
+                platforms: platform ? [{ ...platform }] : undefined,
               })
             }
           />

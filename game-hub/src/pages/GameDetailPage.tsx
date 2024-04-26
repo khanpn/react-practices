@@ -3,15 +3,49 @@ import {
   Box,
   CircularProgress,
   Container,
+  Paper,
   Stack,
   Typography,
+  styled,
+  useTheme,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { ExpandableText, GameMeta, PlatformIconList } from "../components";
-import GameMedia from "../components/game/GameMedia";
+import {
+  GameMedia,
+  ExpandableText,
+  GameMeta,
+  PlatformIconList,
+  SimilarGamesGrid,
+} from "../components";
 import { useFetchGame } from "../hooks/useFetchGame";
 
+interface PaperProps {
+  background_image: string;
+}
+
+const PaperWithBackgroundImage = styled(Paper)<PaperProps>(
+  ({ background_image }) => ({
+    backgroundImage: "none",
+    "&::before": {
+      content: "''",
+      display: "block",
+      position: "absolute",
+      left: 0,
+      top: 0,
+      width: "100%",
+      height: "720px",
+      opacity: 0.1,
+      backgroundImage: `url(${background_image})`,
+      backgroundRepeat: "no-repeat",
+      backgroundSize: "cover",
+    },
+  })
+);
+
 function GameDetailPage() {
+  const {
+    palette: { mode, grey },
+  } = useTheme();
   const { slug } = useParams();
   const { data: game, isLoading, error } = useFetchGame(slug!);
 
@@ -29,27 +63,46 @@ function GameDetailPage() {
   if (!game) throw new Error("There was an error occurred");
 
   return (
-    <Container>
-      <Stack direction={{ xs: "column", md: "row" }} spacing={1.5}>
-        <PlatformIconList
-          platforms={game?.parent_platforms.map((pp) => pp.platform)}
-          maxLength={10}
-        />
-        <Typography variant="h6" sx={{ textTransform: "uppercase" }}>
-          Everage playtime: {game?.playtime} HOURS
-        </Typography>
-      </Stack>
-      <Box sx={{ my: 2 }}>
-        <Typography variant="h3">{game?.name}</Typography>
-      </Box>
-      <GameMedia game={game} />
+    <PaperWithBackgroundImage
+      sx={{ mt: 2 }}
+      background_image={game.background_image}
+    >
+      <Container>
+        <Stack direction={{ xs: "column", md: "row" }} spacing={1.5}>
+          <PlatformIconList
+            platforms={game?.parent_platforms.map((pp) => pp.platform)}
+            maxLength={10}
+          />
+          <Typography variant="h6" sx={{ textTransform: "uppercase" }}>
+            Everage playtime: {game?.playtime} HOURS
+          </Typography>
+        </Stack>
+        <Box sx={{ my: 2 }}>
+          <Typography variant="h3">{game?.name}</Typography>
+        </Box>
+        <GameMedia game={game} />
 
-      <Stack direction="column" spacing={1} sx={{ my: 2 }}>
-        <Typography variant="h5">About</Typography>
-        <ExpandableText variant="body1">{game?.description_raw}</ExpandableText>
-      </Stack>
-      <GameMeta game={game} />
-    </Container>
+        <Stack direction="column" spacing={1} sx={{ my: 2 }}>
+          <Typography variant="h5">About</Typography>
+          <ExpandableText variant="body1">
+            {game?.description_raw}
+          </ExpandableText>
+        </Stack>
+        <Box
+          sx={{
+            p: 2,
+            backgroundColor: mode === "dark" ? grey[900] : grey[200],
+            borderRadius: "4px",
+          }}
+        >
+          <GameMeta game={game} />
+        </Box>
+        <Stack direction="column" spacing={1} sx={{ my: 4 }}>
+          <Typography variant="h5">Similar games:</Typography>
+          <SimilarGamesGrid game={game} />
+        </Stack>
+      </Container>
+    </PaperWithBackgroundImage>
   );
 }
 

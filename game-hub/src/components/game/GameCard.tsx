@@ -8,14 +8,13 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
 import bgImagePlaceholder from "../../assets/images/no-image-placeholder.webp";
 import { Game } from "../../models/game";
 import { getCroppedImageUrl } from "../../services/imageUrl";
 import CriticScore from "./CriticScore";
 import Emoji from "./Emoji";
 import PlatformIconList from "./PlatformIconList";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
 
 export function GameCardSkeleton() {
   const bgCorlor = "gray.500";
@@ -52,9 +51,10 @@ export function GameCardSkeleton() {
 
 interface Props {
   game: Game;
+  onDetailsClick: (game: Game) => void;
 }
 
-function GameCard({ game }: Props) {
+function GameCard({ game, onDetailsClick }: Props) {
   const [raised, setRaised] = useState(false);
   const bgImage =
     getCroppedImageUrl(game.background_image) || bgImagePlaceholder;
@@ -79,10 +79,10 @@ function GameCard({ game }: Props) {
           <Emoji rating={game.rating_top} />
         </Typography>
       </CardContent>
-      <CardActions>
-        <NavLink to={`games/${game.slug}`}>
-          <Button size="small">Details</Button>
-        </NavLink>
+      <CardActions sx={{ justifyContent: "right" }}>
+        <Button size="small" onClick={() => onDetailsClick(game)}>
+          Details
+        </Button>
       </CardActions>
     </Card>
   );

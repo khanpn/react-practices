@@ -9,15 +9,18 @@ interface GameMetaItemItem {
 interface GameMetaItemProps {
   title: string;
   items: GameMetaItemItem[];
+  maxLength?: number;
 }
 
-function GameMetaItem({ title, items }: GameMetaItemProps) {
+function GameMetaItem({ title, items, maxLength = 3 }: GameMetaItemProps) {
+  const remaining = items.length - maxLength;
+
   return (
     <Grid item xs={6} sm={6} md={4} xl={2}>
       <Stack>
         <Typography variant="h6">{title}</Typography>
         <Stack direction={{ xs: "column", sm: "row", md: "row" }} spacing={0.5}>
-          {items.map((item, index) => (
+          {items.slice(0, maxLength).map((item, index) => (
             <Chip
               key={index}
               clickable={item.onClick ? true : false}
@@ -28,6 +31,14 @@ function GameMetaItem({ title, items }: GameMetaItemProps) {
               sx={{ width: "fit-content" }}
             />
           ))}
+          {remaining > 0 && (
+            <Chip
+              label={`+${remaining}`}
+              variant="filled"
+              size="small"
+              sx={{ width: "fit-content" }}
+            />
+          )}
         </Stack>
       </Stack>
     </Grid>

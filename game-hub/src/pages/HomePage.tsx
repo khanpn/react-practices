@@ -1,5 +1,5 @@
 import { Divider, Stack } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import {
   GameGrid,
   GameHeading,
@@ -13,6 +13,11 @@ import { GameQuery } from "../models/gameQuery";
 function HomePage() {
   const { searchText } = useContext(GlobalSearchContext);
   const [gameQuery, setGameQuery] = useState<GameQuery>({});
+
+  useLayoutEffect(() => {
+    window.scroll(0, 0);
+  }, [gameQuery.genres]);
+
   return (
     <Stack direction="row" sx={{ mt: 2 }}>
       <GenreList
@@ -24,7 +29,7 @@ function HomePage() {
       <Divider
         variant="fullWidth"
         component="div"
-        sx={{ px: 1, border: "none" }}
+        sx={{ px: 0.5, border: "none" }}
       />
       <Stack direction="column">
         <GameHeading gameQuery={gameQuery} />

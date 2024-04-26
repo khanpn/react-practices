@@ -39,7 +39,7 @@ export function GameCardSkeleton() {
           <Skeleton height={40} variant="text" sx={{ bgcolor: bgCorlor }} />
         </Typography>
       </CardContent>
-      <CardActions sx={{ pl: 2 }}>
+      <CardActions sx={{ pl: 2, justifyContent: "right" }}>
         <Skeleton
           variant="rectangular"
           sx={{ width: "50px", bgcolor: bgCorlor }}

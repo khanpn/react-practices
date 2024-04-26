@@ -18,6 +18,7 @@ import {
   SimilarGamesGrid,
 } from "../components";
 import { useFetchGame } from "../hooks/useFetchGame";
+import { useLayoutEffect } from "react";
 
 interface PaperProps {
   background_image: string;
@@ -48,6 +49,10 @@ function GameDetailPage() {
   } = useTheme();
   const { slug } = useParams();
   const { data: game, isLoading, error } = useFetchGame(slug!);
+
+  useLayoutEffect(() => {
+    window.scroll(0, 0);
+  }, [slug]);
 
   if (isLoading)
     return (

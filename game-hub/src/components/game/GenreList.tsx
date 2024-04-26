@@ -13,7 +13,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useFetchGenres } from "../../hooks/useFetchGenres";
-import { Genre } from "../../models/genre";
+import { useGameQueryStore } from "../../store";
 
 interface GenreListItemSkeletonProps {
   index: number;
@@ -47,18 +47,14 @@ export function GenreListItemSkeleton({
 }
 
 interface Props {
-  selectedGenre?: Genre;
   numOfSkeletons?: number;
-  onSelectGenre: (genre: Genre) => void;
 }
 
-function GenreList({
-  selectedGenre,
-  numOfSkeletons = 10,
-  onSelectGenre,
-}: Props) {
+function GenreList({ numOfSkeletons = 10 }: Props) {
   const isXs = useMediaQuery((theme: Theme) => theme.breakpoints.down("sm"));
   const { data: genres, error, isLoading } = useFetchGenres();
+  const selectedGenres = useGameQueryStore((state) => state.gameQuery.genres);
+  const setGenres = useGameQueryStore((state) => state.setGenres);
 
   if (error) return error.message;
 
@@ -96,8 +92,8 @@ function GenreList({
           {genres?.map((genre) => (
             <ListItemButton
               key={genre.id}
-              selected={selectedGenre?.id === genre.id}
-              onClick={() => onSelectGenre(genre)}
+              selected={selectedGenres?.includes(`${genre.id}`)}
+              onClick={() => setGenres([`${genre.id}`])}
               sx={{ p: isXs ? 1 : 2 }}
             >
               <Stack

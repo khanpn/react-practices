@@ -8,8 +8,10 @@ interface Props {
 
 function SimilarGamesGrid({ game }: Props) {
   const gameQuery: GameQuery = {
-    genres: [...game.genres],
-    platforms: [...game.parent_platforms.map((pp) => pp.platform)],
+    genres: game.genres
+      ? [...game.genres.map((genre) => `${genre.id}`)]
+      : undefined,
+    platforms: [...game.parent_platforms.map((pp) => `${pp.platform.id}`)],
   };
 
   return <GameGrid gameQuery={gameQuery} exclusions={[game.id]} />;

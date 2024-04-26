@@ -4,8 +4,6 @@ import ColorModeSwitch from "../ColorModeSwitch";
 import SearchInput from "../InputSearch";
 import TopNavMenu, { Page } from "./TopNavMenu";
 import TopNavProfileMenu from "./TopNavProfileMenu";
-import { useContext } from "react";
-import GlobalSearchContext from "../../contexts/globalSearchContext";
 
 const appName = "GameHub";
 const pages: Page[] = [
@@ -14,11 +12,6 @@ const pages: Page[] = [
 ];
 
 function TopNavBar() {
-  const { dispatch: dispatchSearch } = useContext(GlobalSearchContext);
-
-  const onDoSearch = (value: string) =>
-    dispatchSearch({ type: "SEARCH", payload: value });
-
   return (
     <AppBar position="relative" sx={{ zIndex: 999 }}>
       <Container maxWidth="xl">
@@ -64,7 +57,7 @@ function TopNavBar() {
             </Typography>
           </TopNavMenu>
 
-          <SearchInput onSubmit={(value) => onDoSearch && onDoSearch(value)} />
+          <SearchInput />
 
           <Box sx={{ flexGrow: 0, p: 3 }}>
             <ColorModeSwitch />

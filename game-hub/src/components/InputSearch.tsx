@@ -1,10 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase, alpha, styled } from "@mui/material";
 import { useRef } from "react";
-
-interface Props {
-  onSubmit: (value: string) => void;
-}
+import { useGlobalSearchStore } from "../store";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,8 +45,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function InputSearch({ onSubmit }: Props) {
+function InputSearch() {
+  const searchText = useGlobalSearchStore((state) => state.searchText);
+  const setSearchText = useGlobalSearchStore((state) => state.setSearchText);
   const inputRef = useRef<Element>();
+  if (inputRef.current) {
+    (inputRef.current?.children[0] as HTMLInputElement).value =
+      searchText || "";
+  }
   return (
     <Search>
       <SearchIconWrapper>
@@ -58,12 +61,15 @@ function InputSearch({ onSubmit }: Props) {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          onSubmit((inputRef.current?.children[0] as HTMLInputElement).value);
+          setSearchText(
+            (inputRef.current?.children[0] as HTMLInputElement).value
+          );
         }}
       >
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
+          defaultValue={searchText}
           ref={inputRef}
         />
       </form>

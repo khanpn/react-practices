@@ -5,11 +5,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { useState } from "react";
-
-interface Props {
-  onChange: (value: string) => void;
-}
+import { useGameQueryStore } from "../../store";
 
 const sortOptions = [
   {
@@ -38,15 +34,16 @@ const sortOptions = [
   },
 ];
 
-function GameSortSelector({ onChange }: Props) {
-  const [selectedValues, setSelectedValues] = useState<string>("");
-
+function GameSortSelector() {
+  const selectedSortOrder = useGameQueryStore(
+    (state) => state.gameQuery.sortOrder
+  );
+  const setSelectedSortOrder = useGameQueryStore((state) => state.setSortOrder);
   const handleChange = (event: SelectChangeEvent<string>) => {
     const {
       target: { value },
     } = event;
-    setSelectedValues(value);
-    onChange(value);
+    setSelectedSortOrder(value);
   };
 
   return (
@@ -63,7 +60,7 @@ function GameSortSelector({ onChange }: Props) {
       <Select
         labelId="game-sort-select-label"
         id="game-sort-select"
-        value={selectedValues}
+        value={selectedSortOrder || ""}
         label="Sorted by"
         onChange={handleChange}
       >

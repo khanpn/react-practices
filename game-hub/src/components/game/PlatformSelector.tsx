@@ -6,26 +6,14 @@ import {
   Select,
 } from "@mui/material";
 import { useFetchPlatforms } from "../../hooks/useFetchPlatforms";
-import { Platform } from "../../models/platform";
-import { useState } from "react";
+import { useGameQueryStore } from "../../store";
 
-interface Props {
-  onSelectPlatform: (platform?: Platform) => void;
-}
-
-function PlatformSelector({ onSelectPlatform }: Props) {
-  const [selectedValue, setSelectedValue] = useState("");
+function PlatformSelector() {
   const { data: platforms, error } = useFetchPlatforms([]);
-
-  const mapValueToPlatform = (value: string) => {
-    if (!platforms) return undefined;
-    const index = platforms.findIndex((platform) => {
-      return platform.slug === value;
-    });
-    if (index === -1) return undefined;
-
-    return platforms[index];
-  };
+  const selectedPlatforms = useGameQueryStore(
+    (state) => state.gameQuery.platforms
+  );
+  const setSelectedPlatforms = useGameQueryStore((state) => state.setPlatforms);
 
   return (
     <FormControl
@@ -42,19 +30,18 @@ function PlatformSelector({ onSelectPlatform }: Props) {
       <Select
         labelId="platform-select-label"
         id="platform-select"
-        value={selectedValue}
+        value={selectedPlatforms ? selectedPlatforms[0] : ""}
         label="Platform"
         onChange={(e) => {
           const selectedValue = e.target.value;
-          onSelectPlatform(mapValueToPlatform(selectedValue));
-          setSelectedValue(selectedValue);
+          setSelectedPlatforms(selectedValue ? [selectedValue] : undefined);
         }}
       >
         <MenuItem key={-1} value="">
           <em>All Platforms</em>
         </MenuItem>
         {platforms?.map((platform) => (
-          <MenuItem key={platform.id} value={platform.slug}>
+          <MenuItem key={platform.id} value={platform.id}>
             {platform.name}
           </MenuItem>
         ))}

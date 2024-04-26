@@ -1,14 +1,14 @@
 import { CircularProgress, Grid } from "@mui/material";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useNavigate } from "react-router-dom";
 import { useFetchGames } from "../../hooks/useFetchGames";
+import { Game } from "../../models/game";
 import { GameQuery } from "../../models/gameQuery";
 import GameCard, { GameCardSkeleton } from "./GameCard";
-import { useNavigate } from "react-router-dom";
-import { Game } from "../../models/game";
 
 interface Props {
-  gameQuery?: GameQuery;
+  gameQuery: GameQuery;
   numOfSkeletons?: number;
   exclusions?: number[];
 }

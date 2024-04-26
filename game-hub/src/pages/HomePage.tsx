@@ -1,5 +1,5 @@
 import { Divider, Stack } from "@mui/material";
-import { useContext, useLayoutEffect, useState } from "react";
+import { useLayoutEffect } from "react";
 import {
   GameGrid,
   GameHeading,
@@ -7,49 +7,34 @@ import {
   GenreList,
   PlatformSelector,
 } from "../components";
-import GlobalSearchContext from "../contexts/globalSearchContext";
-import { GameQuery } from "../models/gameQuery";
+import { useGameQueryStore, useGlobalSearchStore } from "../store";
 
 function HomePage() {
-  const { searchText } = useContext(GlobalSearchContext);
-  const [gameQuery, setGameQuery] = useState<GameQuery>({});
+  const searchText = useGlobalSearchStore((state) => state.searchText);
+  const setSearchText = useGlobalSearchStore((state) => state.setSearchText);
+  const gameQuery = useGameQueryStore((state) => state.gameQuery);
+  const selectedGenres = useGameQueryStore((state) => state.gameQuery.genres);
 
   useLayoutEffect(() => {
     window.scroll(0, 0);
-  }, [gameQuery.genres]);
+    return () => {
+      setSearchText("");
+    };
+  }, [selectedGenres]);
 
   return (
     <Stack direction="row" sx={{ mt: 2 }}>
-      <GenreList
-        selectedGenre={gameQuery.genres ? gameQuery.genres[0] : undefined}
-        onSelectGenre={(genre) =>
-          setGameQuery({ ...gameQuery, genres: [{ ...genre }] })
-        }
-      />
+      <GenreList />
       <Divider
         variant="fullWidth"
         component="div"
         sx={{ px: 0.5, border: "none" }}
       />
       <Stack direction="column">
-        <GameHeading gameQuery={gameQuery} />
+        <GameHeading />
         <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap" pt={1}>
-          <PlatformSelector
-            onSelectPlatform={(platform) =>
-              setGameQuery({
-                ...gameQuery,
-                platforms: platform ? [{ ...platform }] : undefined,
-              })
-            }
-          />
-          <GameSortSelector
-            onChange={(value) =>
-              setGameQuery({
-                ...gameQuery,
-                sortOrder: value,
-              })
-            }
-          />
+          <PlatformSelector />
+          <GameSortSelector />
         </Stack>
 
         <Divider

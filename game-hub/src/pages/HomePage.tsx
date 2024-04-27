@@ -35,41 +35,43 @@ function HomePage() {
   useEffect(() => {
     return () => {
       setSearchText("");
+      setGameQuery({});
     };
   }, []);
 
   return (
-    <Stack direction="row" sx={{ mt: 2 }}>
-      <GenreList />
-      <Divider
-        variant="fullWidth"
-        component="div"
-        sx={{ px: 0.5, border: "none" }}
-      />
-      <Stack direction="column">
-        <GameHeading />
-        <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap" pt={1}>
-          <PlatformSelector />
-          <GameSortSelector />
-        </Stack>
+    <GenreList heading="Genres">
+      <Stack direction="row" p={{ xs: 1, md: 2 }}>
+        <Divider
+          variant="fullWidth"
+          component="div"
+          sx={{ px: 0.5, border: "none" }}
+        />
+        <Stack direction="column">
+          <GameHeading />
+          <Stack direction="row" spacing={2} useFlexGap flexWrap="wrap" pt={1}>
+            <PlatformSelector />
+            <GameSortSelector />
+          </Stack>
 
+          <Divider
+            component="div"
+            sx={{
+              mb: 2,
+              border: "none",
+            }}
+          />
+          <GameGrid gameQuery={{ ...gameQuery, search: searchText }} />
+        </Stack>
         <Divider
           component="div"
           sx={{
-            mb: 2,
+            mx: 1,
             border: "none",
           }}
         />
-        <GameGrid gameQuery={{ ...gameQuery, search: searchText }} />
       </Stack>
-      <Divider
-        component="div"
-        sx={{
-          mx: 1,
-          border: "none",
-        }}
-      />
-    </Stack>
+    </GenreList>
   );
 }
 

@@ -3,29 +3,28 @@ import {
   Box,
   CircularProgress,
   Container,
-  Paper,
   Stack,
   Typography,
   styled,
   useTheme,
 } from "@mui/material";
+import { useLayoutEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  GameMedia,
   ExpandableText,
+  GameMedia,
   GameMeta,
   PlatformIconList,
   SimilarGamesGrid,
 } from "../components";
 import { useFetchGame } from "../hooks/useFetchGame";
-import { useLayoutEffect } from "react";
 import { useGlobalSearchStore } from "../store";
 
 interface PaperProps {
   background_image: string;
 }
 
-const PaperWithBackgroundImage = styled(Paper)<PaperProps>(
+const BoxWithBackgroundImage = styled(Box)<PaperProps>(
   ({ background_image }) => ({
     backgroundImage: "none",
     "&::before": {
@@ -50,7 +49,9 @@ function GameDetailPage() {
   if (searchText) navigate("/");
 
   const {
-    palette: { mode, grey },
+    palette: {
+      background: { paper },
+    },
   } = useTheme();
   const { slug } = useParams();
   const { data: game, isLoading, error } = useFetchGame(slug!);
@@ -73,8 +74,8 @@ function GameDetailPage() {
   if (!game) throw new Error("There was an error occurred");
 
   return (
-    <PaperWithBackgroundImage
-      sx={{ mt: 2 }}
+    <BoxWithBackgroundImage
+      sx={{ pt: 2 }}
       background_image={game.background_image}
     >
       <Container>
@@ -98,10 +99,11 @@ function GameDetailPage() {
             {game?.description_raw}
           </ExpandableText>
         </Stack>
+
         <Box
           sx={{
             p: 2,
-            backgroundColor: mode === "dark" ? grey[900] : grey[200],
+            backgroundColor: paper,
             borderRadius: "4px",
           }}
         >
@@ -112,7 +114,7 @@ function GameDetailPage() {
           <SimilarGamesGrid game={game} />
         </Stack>
       </Container>
-    </PaperWithBackgroundImage>
+    </BoxWithBackgroundImage>
   );
 }
 

@@ -54,7 +54,7 @@ function GameGrid({ gameQuery, exclusions, numOfSkeletons = 9 }: Props) {
       hasMore={hasNextPage}
       next={() => fetchNextPage()}
       loader={<CircularProgress color="inherit" />}
-      style={{ overflowY: "hidden" }}
+      style={{ overflow: "visible" }}
     >
       <Grid container spacing={{ xs: 1, sm: 1, md: 3 }} direction="row">
         {isLoading &&

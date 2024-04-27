@@ -17,42 +17,35 @@ interface Props {
 
 function PlatformIcon({ variant, children }: Props) {
   const {
-    palette: { background, text },
+    palette: {
+      background: { paper: bgcolor },
+      text: { primary: textColor },
+    },
   } = useTheme();
   return (
     <SvgIcon
       sx={{ fontSize: 16 }}
       component={variant === "more" ? "span" : "svg"}
     >
-      {(variant === "pc" && (
-        <WindowSvg fill={text.primary} stroke={background.default} />
-      )) ||
+      {(variant === "pc" && <WindowSvg fill={textColor} stroke={bgcolor} />) ||
         (variant === "playstation" && (
-          <PlaystationSvg fill={text.primary} stroke={background.default} />
+          <PlaystationSvg fill={textColor} stroke={bgcolor} />
         )) ||
-        (variant === "xbox" && (
-          <XboxSvg fill={text.primary} stroke={background.default} />
-        )) ||
+        (variant === "xbox" && <XboxSvg fill={textColor} stroke={bgcolor} />) ||
         (variant === "nintendo" && (
-          <NitendoSvg fill={text.primary} stroke={text.primary} />
+          <NitendoSvg fill={textColor} stroke={bgcolor} />
         )) ||
-        (variant === "mac" && (
-          <MacSvg fill={text.primary} stroke={background.default} />
-        )) ||
+        (variant === "mac" && <MacSvg fill={textColor} stroke={bgcolor} />) ||
         (variant === "linux" && (
-          <LinuxSvg fill={background.default} stroke={text.primary} />
+          <LinuxSvg fill={bgcolor} stroke={textColor} />
         )) ||
         (variant === "android" && (
-          <AndroidSvg fill={text.primary} stroke={background.default} />
+          <AndroidSvg fill={textColor} stroke={bgcolor} />
         )) ||
-        (variant === "ios" && (
-          <IosSvg fill={background.default} stroke={text.primary} />
-        )) ||
-        (variant === "web" && (
-          <WebSvg fill={text.primary} stroke={text.primary} />
-        )) ||
+        (variant === "ios" && <IosSvg fill={bgcolor} stroke={textColor} />) ||
+        (variant === "web" && <WebSvg fill={textColor} stroke={textColor} />) ||
         (variant === "more" && (
-          <Typography color={text.primary} variant="body2">
+          <Typography color={textColor} variant="body2">
             {children}
           </Typography>
         ))}

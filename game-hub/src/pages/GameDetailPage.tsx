@@ -9,7 +9,7 @@ import {
   styled,
   useTheme,
 } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   GameMedia,
   ExpandableText,
@@ -19,6 +19,7 @@ import {
 } from "../components";
 import { useFetchGame } from "../hooks/useFetchGame";
 import { useLayoutEffect } from "react";
+import { useGlobalSearchStore } from "../store";
 
 interface PaperProps {
   background_image: string;
@@ -44,6 +45,10 @@ const PaperWithBackgroundImage = styled(Paper)<PaperProps>(
 );
 
 function GameDetailPage() {
+  const navigate = useNavigate();
+  const searchText = useGlobalSearchStore((state) => state.searchText);
+  if (searchText) navigate("/");
+
   const {
     palette: { mode, grey },
   } = useTheme();

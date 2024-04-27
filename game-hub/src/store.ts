@@ -13,6 +13,7 @@ const useGlobalSearchStore = create<GlobalSearchStore>((set) => ({
 
 interface GameQueryStore {
   gameQuery: GameQuery;
+  setGameQuery: (gameQuery: GameQuery) => void;
   setGenres: (genres?: string[]) => void;
   setPlatforms: (platforms?: string[]) => void;
   setSortOrder: (sortOrder?: string) => void;
@@ -20,6 +21,7 @@ interface GameQueryStore {
 
 const useGameQueryStore = create<GameQueryStore>((set) => ({
   gameQuery: {},
+  setGameQuery: (gameQuery) => set(() => ({ gameQuery })),
   setGenres: (genres) =>
     set((state) => ({ gameQuery: { ...state.gameQuery, genres: genres } })),
   setPlatforms: (platforms) =>

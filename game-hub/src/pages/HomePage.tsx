@@ -1,5 +1,5 @@
 import { Divider, Stack } from "@mui/material";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import {
   GameGrid,
   GameHeading,
@@ -13,14 +13,30 @@ function HomePage() {
   const searchText = useGlobalSearchStore((state) => state.searchText);
   const setSearchText = useGlobalSearchStore((state) => state.setSearchText);
   const gameQuery = useGameQueryStore((state) => state.gameQuery);
+  const setGameQuery = useGameQueryStore((state) => state.setGameQuery);
   const selectedGenres = useGameQueryStore((state) => state.gameQuery.genres);
+  const selectedPlatforms = useGameQueryStore(
+    (state) => state.gameQuery.platforms
+  );
 
   useLayoutEffect(() => {
+    if (selectedGenres || selectedPlatforms) {
+      setSearchText("");
+    }
     window.scroll(0, 0);
+  }, [selectedGenres, selectedPlatforms]);
+
+  useLayoutEffect(() => {
+    if (searchText) {
+      setGameQuery({});
+    }
+  }, [searchText]);
+
+  useEffect(() => {
     return () => {
       setSearchText("");
     };
-  }, [selectedGenres]);
+  }, []);
 
   return (
     <Stack direction="row" sx={{ mt: 2 }}>

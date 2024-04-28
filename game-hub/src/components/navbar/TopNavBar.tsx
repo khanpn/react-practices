@@ -6,10 +6,7 @@ import TopNavMenu, { Page } from "./TopNavMenu";
 import TopNavProfileMenu from "./TopNavProfileMenu";
 
 const appName = "GameHub";
-const pages: Page[] = [
-  { path: "/", name: "Home" },
-  { path: "/", name: "Leaderboard" },
-];
+const pages: Page[] = [{ path: "/", name: "Home" }];
 
 function TopNavBar() {
   return (

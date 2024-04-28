@@ -5,10 +5,21 @@ import { User } from "../models/user";
 
 export const demoUser: User = {
   id: 1,
-  username: "khanhn",
+  username: "demo",
+  password: "demo",
+  gender: "male",
   firstName: "Khanh",
   lastName: "Nguyen",
+  jobTitle: "Software Engineer",
+  email: "khanh.p.nguyen@outlook.com",
+  phone: "(641)-451-3937",
   avatar: avatarUrl,
+  attributes: [
+    { name: "Java", value: "Advanced" },
+    { name: "Microservices", value: "Intermediate" },
+    { name: "Angular", value: "Intermediate" },
+    { name: "React", value: "Beginner" },
+  ],
 };
 
 interface AuthProviderProps {

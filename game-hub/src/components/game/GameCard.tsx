@@ -80,7 +80,11 @@ function GameCard({ game, onDetailsClick }: Props) {
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "right" }}>
-        <Button size="small" onClick={() => onDetailsClick(game)}>
+        <Button
+          variant="outlined"
+          size="small"
+          onClick={() => onDetailsClick(game)}
+        >
           Details
         </Button>
       </CardActions>

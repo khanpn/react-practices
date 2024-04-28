@@ -10,10 +10,11 @@ import LogoutPage from "./pages/LogoutPage";
 
 const router = createBrowserRouter([
   {
+    path: "/",
     element: <Layout />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <HomePage />,
       },
       {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LoginPage />,
       },
+      {
+        path: "/logout",
+        element: <LogoutPage />,
+      },
     ],
     errorElement: <ErrorPage />,
   },
@@ -33,10 +38,6 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <ProfilePage />,
-      },
-      {
-        path: "/logout",
-        element: <LogoutPage />,
       },
     ],
   },

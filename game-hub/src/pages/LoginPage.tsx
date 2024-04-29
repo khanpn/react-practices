@@ -56,7 +56,10 @@ function LoginPage() {
           return new Promise((resolve) => {
             setValidating(true);
             setTimeout(() => {
-              if (username === "demo" && password === "demo") {
+              if (
+                username === demoUser.username &&
+                password === demoUser.password
+              ) {
                 resolve(true);
               } else {
                 setShowServerError(true);

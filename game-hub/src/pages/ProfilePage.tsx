@@ -2,8 +2,10 @@ import { Grid } from "@mui/material";
 import profileCoverImageUrl from "../assets/images/profile-cover.png";
 import { ProfileCard, SettingsCard } from "../components";
 import { demoUser } from "../providers/authProvider";
+import useGlobalSearchHandler from "../hooks/useGlobalSearchHandler";
 
 function ProfilePage() {
+  useGlobalSearchHandler();
   return (
     <Grid container direction="column" sx={{ overflowX: "hidden" }}>
       <Grid item xs={12} md={6}>

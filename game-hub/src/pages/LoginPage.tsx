@@ -25,6 +25,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { demoUser } from "../providers/authProvider";
+import useGlobalSearchHandler from "../hooks/useGlobalSearchHandler";
 
 const paperStyle = {
   padding: 20,
@@ -33,6 +34,7 @@ const paperStyle = {
 };
 
 function LoginPage() {
+  useGlobalSearchHandler();
   const navigate = useNavigate();
   const { setUser } = useAuth();
   const [validating, setValidating] = useState(false);

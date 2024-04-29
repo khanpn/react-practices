@@ -27,9 +27,7 @@ function HomePage() {
   }, [selectedGenres, selectedPlatforms]);
 
   useLayoutEffect(() => {
-    if (searchText) {
-      setGameQuery({});
-    }
+    setGameQuery({ search: searchText });
   }, [searchText]);
 
   useEffect(() => {
@@ -61,7 +59,7 @@ function HomePage() {
               border: "none",
             }}
           />
-          <GameGrid gameQuery={{ ...gameQuery, search: searchText }} />
+          <GameGrid gameQuery={{ ...gameQuery }} />
         </Stack>
         <Divider
           component="div"

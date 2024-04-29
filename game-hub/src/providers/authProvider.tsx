@@ -27,7 +27,7 @@ interface AuthProviderProps {
 }
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<User | undefined>(demoUser);
+  const [user, setUser] = useState<User | undefined>();
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       {children}

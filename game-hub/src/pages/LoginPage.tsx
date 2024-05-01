@@ -174,10 +174,10 @@ function LoginPage() {
             Sign in
           </Button>
           <Typography>
-            <Link href="#">Forgot password?</Link>
+            <Link>Forgot password?</Link>
           </Typography>
           <Typography>
-            Do you have an account? <Link href="#">Sign Up</Link>
+            Do you have an account? <Link>Sign Up</Link>
           </Typography>
         </Paper>
       </form>

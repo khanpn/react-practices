@@ -7,18 +7,18 @@ import {
   Typography,
   styled,
   useTheme,
-} from "@mui/material";
-import { useLayoutEffect } from "react";
-import { useParams } from "react-router-dom";
+} from '@mui/material';
+import { useLayoutEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   ExpandableText,
   GameMedia,
   GameMeta,
   PlatformIconList,
   SimilarGamesGrid,
-} from "../components";
-import { useFetchGame } from "../hooks/useFetchGame";
-import useGlobalSearchHandler from "../hooks/useGlobalSearchHandler";
+} from '../components';
+import { useFetchGame } from '../hooks/useFetchGame';
+import useGlobalSearchHandler from '../hooks/useGlobalSearchHandler';
 
 interface PaperProps {
   background_image: string;
@@ -26,19 +26,19 @@ interface PaperProps {
 
 const BoxWithBackgroundImage = styled(Box)<PaperProps>(
   ({ background_image }) => ({
-    backgroundImage: "none",
-    "&::before": {
+    backgroundImage: 'none',
+    '&::before': {
       content: "''",
-      display: "block",
-      position: "absolute",
+      display: 'block',
+      position: 'absolute',
       left: 0,
       top: 0,
-      width: "100%",
-      height: "720px",
+      width: '100%',
+      height: '720px',
       opacity: 0.1,
       backgroundImage: `url(${background_image})`,
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
     },
   })
 );
@@ -61,7 +61,7 @@ function GameDetailPage() {
   if (isLoading)
     return (
       <Backdrop
-        sx={{ color: "white", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: 'white', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isLoading}
       >
         <CircularProgress color="inherit" />
@@ -69,7 +69,7 @@ function GameDetailPage() {
     );
 
   if (error) throw error;
-  if (!game) throw new Error("There was an error occurred");
+  if (!game) throw new Error('There was an error occurred');
 
   return (
     <BoxWithBackgroundImage
@@ -77,12 +77,12 @@ function GameDetailPage() {
       background_image={game.background_image}
     >
       <Container>
-        <Stack direction={{ xs: "column", md: "row" }} spacing={1.5}>
+        <Stack direction={{ xs: 'column', md: 'row' }} spacing={1.5}>
           <PlatformIconList
             platforms={game?.parent_platforms.map((pp) => pp.platform)}
             maxLength={10}
           />
-          <Typography variant="h6" sx={{ textTransform: "uppercase" }}>
+          <Typography variant="h6" sx={{ textTransform: 'uppercase' }}>
             Everage playtime: {game?.playtime} HOURS
           </Typography>
         </Stack>
@@ -102,13 +102,13 @@ function GameDetailPage() {
           sx={{
             p: 2,
             backgroundColor: paper,
-            borderRadius: "4px",
+            borderRadius: '4px',
           }}
         >
           <GameMeta game={game} />
         </Box>
         <Stack direction="column" spacing={1} sx={{ my: 4 }}>
-          <Typography variant="h5">Similar games:</Typography>
+          <Typography variant="h5">Similar games</Typography>
           <SimilarGamesGrid game={game} />
         </Stack>
       </Container>

@@ -5,10 +5,11 @@ export interface User {
   firstName: string;
   middleName?: string;
   lastName: string;
-  gender?: "male" | "female";
+  gender?: 'male' | 'female';
   jobTitle?: string;
   phone?: string;
   email?: string;
   avatar?: string;
+  website?: string;
   attributes?: { name: string; value: string }[];
 }
